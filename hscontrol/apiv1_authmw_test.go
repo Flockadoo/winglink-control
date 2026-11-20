@@ -13,7 +13,7 @@ import (
 	"github.com/stretchr/testify/require"
 )
 
-// TestPublicRouterOmitsAdminAPI proves /api is not on the listener inferscale
+// TestPublicRouterOmitsAdminAPI proves /api is not on the listener winglink
 // dials. Admin stays on the unix socket. A bearer token does not bring it back.
 func TestPublicRouterOmitsAdminAPI(t *testing.T) {
 	app := createTestApp(t)
@@ -47,7 +47,7 @@ func TestPublicRouterOmitsAdminAPI(t *testing.T) {
 		})
 	}
 
-	// Control plane stays. /health is what inferscaled checks.
+	// Control plane stays. /health is what winglinkd checks.
 	req := httptest.NewRequestWithContext(context.Background(), http.MethodGet, "/health", nil)
 	rec := httptest.NewRecorder()
 	handler.ServeHTTP(rec, req)

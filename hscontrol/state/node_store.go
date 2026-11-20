@@ -827,7 +827,7 @@ func onlineAdvertisers(
 
 // electPrimaryRoutes picks the primary advertiser for each non-exit
 // prefix inside one tailnet. Cross-network advertisers of the same
-// prefix do not compete: Inferoute clusters routinely share LAN
+// prefix do not compete: Flockadoo clusters routinely share LAN
 // ranges (10.0.0.0/24, 192.168.1.0/24), and a global election would
 // drop the subnet from the losing tailnet's AllowedIPs.
 //

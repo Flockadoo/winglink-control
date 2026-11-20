@@ -1,12 +1,12 @@
-# inferoute-network
+# winglink-control
 
-Headscale fork that runs more than one tailnet in a single process. A cluster is a network. An Inferoute user is a Headscale user inside that network. Their machine is a node joined with a single-use pre-auth key.
+Headscale fork that runs more than one tailnet in a single process. A cluster is a network. A Flockadoo user is a Headscale user inside that network. Their machine is a node joined with a single-use pre-auth key.
 
 Nodes in one network can ping each other. Nodes in another network do not see them.
 
 ## Test on a server
 
-One Ubuntu machine runs Headscale. Two other machines run the inferscale client, not the Tailscale client. Nothing else is required. Skip Traefik for this test.
+One Ubuntu machine runs Headscale. Two other machines run the winglink client, not the Tailscale client. Nothing else is required. Skip Traefik for this test.
 
 On the server:
 
@@ -33,7 +33,7 @@ database:
     path: /var/lib/headscale/db.sqlite
 dns:
   magic_dns: true
-  base_domain: tailnet.inferoute.internal
+  base_domain: winglink.flockadoo.internal
   override_local_dns: true
   nameservers:
     global:
@@ -55,7 +55,7 @@ On the Headscale server, allow inbound TCP `8080`. The client machines only conn
 ./headscale serve
 ```
 
-In another shell on the same server, create two clusters and one key per machine. `--user` is the Inferoute username. The same name in two clusters is allowed.
+In another shell on the same server, create two clusters and one key per machine. `--user` is the Flockadoo username. The same name in two clusters is allowed.
 
 ```shell
 ./headscale networks create --name cluster-a
@@ -66,48 +66,48 @@ In another shell on the same server, create two clusters and one key per machine
 ./headscale preauthkeys create --network cluster-b --user carol --expiration 24h
 ```
 
-On each client machine, install inferscale from the `edge` release of [Inferoute/inferoute-tailscale](https://github.com/Inferoute/inferoute-tailscale/releases/tag/edge). `gh` must be logged in. The repo is private. Do not install the Tailscale package. The two files are the same binary. The name `inferscaled` is the daemon. The name `inferscale` is the command you type.
+On each client machine, install winglink from the `edge` release of [Flockadoo/winglink](https://github.com/Flockadoo/winglink/releases/tag/edge). `gh` must be logged in. The repo is private. Do not install the Tailscale package. The two files are the same binary. The name `winglinkd` is the daemon. The name `winglink` is the command you type.
 
 Linux amd64. Use `arm64` in the names on an arm64 machine.
 
 ```shell
-gh release download edge --repo Inferoute/inferoute-tailscale \
-  --pattern inferscale-linux-amd64 --pattern inferscaled-linux-amd64 --clobber
-sudo install -m 755 inferscale-linux-amd64 /usr/local/bin/inferscale
-sudo install -m 755 inferscaled-linux-amd64 /usr/local/bin/inferscaled
-sudo inferscaled
+gh release download edge --repo Flockadoo/winglink \
+  --pattern winglink-linux-amd64 --pattern winglinkd-linux-amd64 --clobber
+sudo install -m 755 winglink-linux-amd64 /usr/local/bin/winglink
+sudo install -m 755 winglinkd-linux-amd64 /usr/local/bin/winglinkd
+sudo winglinkd
 ```
 
 macOS. Use `amd64` on an Intel Mac.
 
 ```shell
-gh release download edge --repo Inferoute/inferoute-tailscale \
-  --pattern inferscale-darwin-arm64 --pattern inferscaled-darwin-arm64 --clobber
-sudo install -m 755 inferscale-darwin-arm64 /usr/local/bin/inferscale
-sudo install -m 755 inferscaled-darwin-arm64 /usr/local/bin/inferscaled
-sudo inferscaled
+gh release download edge --repo Flockadoo/winglink \
+  --pattern winglink-darwin-arm64 --pattern winglinkd-darwin-arm64 --clobber
+sudo install -m 755 winglink-darwin-arm64 /usr/local/bin/winglink
+sudo install -m 755 winglinkd-darwin-arm64 /usr/local/bin/winglinkd
+sudo winglinkd
 ```
 
-Windows. Unzip `inferscale-windows-amd64.zip`. It contains `inferscale-windows-amd64.exe`, `inferscaled-windows-amd64.exe`, and `wintun.dll`. Keep `wintun.dll` next to the daemon exe. Run the daemon from an Administrator shell, then leave that window open.
+Windows. Unzip `winglink-windows-amd64.zip`. It contains `winglink-windows-amd64.exe`, `winglinkd-windows-amd64.exe`, and `wintun.dll`. Keep `wintun.dll` next to the daemon exe. Run the daemon from an Administrator shell, then leave that window open.
 
 ```shell
-gh release download edge --repo Inferoute/inferoute-tailscale \
-  --pattern inferscale-windows-amd64.zip --clobber
+gh release download edge --repo Flockadoo/winglink \
+  --pattern winglink-windows-amd64.zip --clobber
 ```
 
-On Alice's machine and Bob's machine, in a second shell. On Windows, skip `sudo` and run `inferscale-windows-amd64.exe` from the unzipped directory.
+On Alice's machine and Bob's machine, in a second shell. On Windows, skip `sudo` and run `winglink-windows-amd64.exe` from the unzipped directory.
 
 ```shell
-sudo inferscale up --login-server=http://203.0.113.10:8080 --auth-key=<their-key> --accept-routes
+sudo winglink up --login-server=http://203.0.113.10:8080 --auth-key=<their-key> --accept-routes
 ```
 
 On Carol's machine, use the `cluster-b` key.
 
-Alice and Bob each run `sudo inferscale status`. Each should list the other and nobody else. `sudo inferscale ip -4` prints a `198.18.x.x` address. `sudo inferscale ping` to that address should succeed.
+Alice and Bob each run `sudo winglink status`. Each should list the other and nobody else. `sudo winglink ip -4` prints a `198.18.x.x` address. `sudo winglink ping` to that address should succeed.
 
-Carol's `sudo inferscale status` must not list Alice or Bob. `sudo inferscale ping` to one of their addresses must fail with `no matching peer`.
+Carol's `sudo winglink status` must not list Alice or Bob. `sudo winglink ping` to one of their addresses must fail with `no matching peer`.
 
-If `inferscale status` shows the peer and the ping still fails, the cluster is fine and UDP between those two machines is not. If the peer is missing, the control server is the problem.
+If `winglink status` shows the peer and the ping still fails, the cluster is fine and UDP between those two machines is not. If the peer is missing, the control server is the problem.
 
 ## Test in Docker
 
@@ -118,4 +118,4 @@ go run ./cmd/hi doctor
 go run ./cmd/hi run "^TestTwoIsolatedNetworks$" --timeout=20m
 ```
 
-After this branch is on `main`, GitHub publishes `ghcr.io/inferoute/inferoute-network:edge`. `deploy/` is the later layout, with Traefik and this machine's own DERP relay. Do not use that config for the test above.
+After this branch is on `main`, GitHub publishes `ghcr.io/flockadoo/winglink-control:edge`. `deploy/` is the later layout, with Traefik and this machine's own DERP relay. Do not use that config for the test above.

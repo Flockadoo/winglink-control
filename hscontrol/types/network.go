@@ -28,7 +28,7 @@ type Network struct {
 }
 
 // ValidateNetworkName rejects empty names and whitespace. Cluster ids from
-// Inferoute are opaque strings, so this is intentionally looser than a username.
+// Flockadoo are opaque strings, so this is intentionally looser than a username.
 func ValidateNetworkName(name string) error {
 	if name == "" || len(name) > 63 || strings.ContainsAny(name, " \t\r\n/") {
 		return fmt.Errorf("%w: %q", ErrInvalidNetworkName, name)

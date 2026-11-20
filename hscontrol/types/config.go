@@ -37,10 +37,10 @@ const (
 
 	dnsDocsURL = "https://headscale.net/stable/ref/dns/"
 
-	// Supported allocation ranges. The Inferoute client uses these, not
+	// Supported allocation ranges. The Flockadoo client uses these, not
 	// Tailscale's 100.64.0.0/10 and fd7a:115c:a1e0::/48.
-	inferoutePrefix4 = "198.18.0.0/15"
-	inferoutePrefix6 = "fd2e:7c4a:9b10::/48"
+	flockadooPrefix4 = "198.18.0.0/15"
+	flockadooPrefix6 = "fd2e:7c4a:9b10::/48"
 )
 
 var (
@@ -1425,24 +1425,24 @@ func LoadServerConfig() (*Config, error) {
 	logConfig := logConfig()
 	zerolog.SetGlobalLevel(logConfig.Level)
 
-	prefix4, v4NonStandard, err := parsePrefixConfig("prefixes.v4", netip.MustParsePrefix(inferoutePrefix4), "IPv4")
+	prefix4, v4NonStandard, err := parsePrefixConfig("prefixes.v4", netip.MustParsePrefix(flockadooPrefix4), "IPv4")
 	if err != nil {
 		v.Add(&ConfigError{
 			Reason:  "prefixes.v4 is not a valid CIDR",
 			Current: []KV{{"prefixes.v4", viper.GetString("prefixes.v4")}},
 			Detail:  err.Error(),
-			Hint:    `use CIDR form, e.g. "` + inferoutePrefix4 + `"`,
+			Hint:    `use CIDR form, e.g. "` + flockadooPrefix4 + `"`,
 			Cause:   err,
 		})
 	}
 
-	prefix6, v6NonStandard, err := parsePrefixConfig("prefixes.v6", netip.MustParsePrefix(inferoutePrefix6), "IPv6")
+	prefix6, v6NonStandard, err := parsePrefixConfig("prefixes.v6", netip.MustParsePrefix(flockadooPrefix6), "IPv6")
 	if err != nil {
 		v.Add(&ConfigError{
 			Reason:  "prefixes.v6 is not a valid CIDR",
 			Current: []KV{{"prefixes.v6", viper.GetString("prefixes.v6")}},
 			Detail:  err.Error(),
-			Hint:    `use CIDR form, e.g. "` + inferoutePrefix6 + `"`,
+			Hint:    `use CIDR form, e.g. "` + flockadooPrefix6 + `"`,
 			Cause:   err,
 		})
 	}
@@ -1465,20 +1465,20 @@ func LoadServerConfig() (*Config, error) {
 				{"prefixes.v4", viper.GetString("prefixes.v4")},
 				{"prefixes.v6", viper.GetString("prefixes.v6")},
 			},
-			Hint:  `set at least one of prefixes.v4 ("` + inferoutePrefix4 + `") or prefixes.v6 ("` + inferoutePrefix6 + `")`,
+			Hint:  `set at least one of prefixes.v4 ("` + flockadooPrefix4 + `") or prefixes.v6 ("` + flockadooPrefix6 + `")`,
 			Cause: ErrNoPrefixConfigured,
 		})
 	}
 
 	if v4NonStandard || v6NonStandard {
 		warnBanner([]string{
-			"You have overridden the Inferoute IP prefixes.",
+			"You have overridden the Flockadoo IP prefixes.",
 			"This is NOT a supported configuration.",
 			"",
-			"Using subsets of " + inferoutePrefix4 + " and",
-			inferoutePrefix6 + " is fine. The stock Tailscale",
+			"Using subsets of " + flockadooPrefix4 + " and",
+			flockadooPrefix6 + " is fine. The stock Tailscale",
 			"client uses 100.64.0.0/10 and will not accept these",
-			"addresses. Use the inferscale client.",
+			"addresses. Use the winglink client.",
 			"",
 			"Please revert your prefixes to subsets of the",
 			"ranges in the example configuration.",

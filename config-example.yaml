@@ -42,7 +42,7 @@ noise:
 # Each prefix consists of either an IPv4 or IPv6 address,
 # and the associated prefix length, delimited by a slash.
 #
-# These are the Inferoute ranges. A subset is fine. Anything else warns
+# These are the Flockadoo ranges. A subset is fine. Anything else warns
 # at startup. The stock Tailscale client still uses 100.64.0.0/10 and
 # will not join a tailnet allocated from these prefixes.
 prefixes:

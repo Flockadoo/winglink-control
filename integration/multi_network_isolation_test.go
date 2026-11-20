@@ -11,7 +11,7 @@ import (
 	"github.com/stretchr/testify/require"
 )
 
-// TestTwoIsolatedNetworks is the cluster flow without Inferoute: two tailnets
+// TestTwoIsolatedNetworks is the cluster flow without Flockadoo: two tailnets
 // on one process, invite-by-key, ping inside, no peers across.
 //
 // shortcut: one reusable key per network. RunTailscaleUp logs every client in
