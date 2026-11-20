@@ -1,6 +1,6 @@
-# Paste into the Inferoute stack later. This file does not start that stack.
+# Paste into the Flockadoo stack later. This file does not start that stack.
 # Traefik needs an entrypoint named websecure on :443 before the router below works.
-# GHCR is private: the host needs a read token for ghcr.io/inferoute/inferoute-network.
+# GHCR is private: the host needs a read token for ghcr.io/flockadoo/winglink-control.
 #
 # If tailscale up stalls, the HTTP proxy dropped Upgrade: tailscale-control-protocol
 # or Upgrade: derp. Switch this hostname to a Traefik TCP router and let Headscale
@@ -8,7 +8,7 @@
 # hostname is either proxied or passed through.
 services:
   headscale:
-    image: ghcr.io/inferoute/inferoute-network:edge
+    image: ghcr.io/flockadoo/winglink-control:edge
     command: ["serve"]
     restart: unless-stopped
     volumes:
@@ -17,7 +17,7 @@ services:
     ports:
       - "3478:3478/udp"
     networks:
-      - inferoute-net
+      - flockadoo-net
     labels:
       - traefik.enable=true
       - traefik.http.routers.headscale.rule=Host(`hs.example.com`)
@@ -26,7 +26,7 @@ services:
       - traefik.http.services.headscale.loadbalancer.server.port=8080
 
 networks:
-  inferoute-net:
+  flockadoo-net:
     external: true
 
 volumes:

@@ -5,7 +5,7 @@ listen_addr: 0.0.0.0:8080
 metrics_listen_addr: 0.0.0.0:9090
 
 # Traefik is another container. 127.0.0.1/32 would ignore its forwarding headers.
-# Tighten this to the inferoute-net subnet once Docker has assigned one.
+# Tighten this to the flockadoo-net subnet once Docker has assigned one.
 trusted_proxies:
   - 172.16.0.0/12
 
@@ -25,8 +25,8 @@ derp:
   server:
     enabled: true
     region_id: 999
-    region_code: inferoute
-    region_name: Inferoute
+    region_code: flockadoo
+    region_name: Flockadoo
     verify_clients: true
     stun_listen_addr: 0.0.0.0:3478
     private_key_path: /var/lib/headscale/derp_server_private.key
@@ -55,7 +55,7 @@ policy:
 dns:
   magic_dns: true
   # Must not be the server_url host.
-  base_domain: tailnet.inferoute.internal
+  base_domain: winglink.flockadoo.internal
   override_local_dns: true
   nameservers:
     global:

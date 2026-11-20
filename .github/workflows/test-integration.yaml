@@ -287,12 +287,12 @@ jobs:
           - TestUserCommand
           - TestUserCreateCommand
           - TestUserCommandValidation
-          - TestClusterTailnetGrants
           - TestDERPVerifyEndpoint
           - TestResolveMagicDNS
           - TestResolveMagicDNSExtraRecordsPath
           - TestDERPServerScenario
           - TestDERPServerWebsocketScenario
+          - TestFlockTailnetGrants
           - TestPingAllByIP
           - TestPingAllByIPPublicDERP
           - TestEphemeral

@@ -12,9 +12,9 @@ func TestCreateNetworkIsolatesPeers(t *testing.T) {
 	db, err := newSQLiteTestDB()
 	require.NoError(t, err)
 
-	_, userA, err := db.CreateNetwork("cluster-a")
+	_, userA, err := db.CreateNetwork("flock-a")
 	require.NoError(t, err)
-	_, userB, err := db.CreateNetwork("cluster-b")
+	_, userB, err := db.CreateNetwork("flock-b")
 	require.NoError(t, err)
 
 	a1 := db.CreateNodeForTest(userA, "a1")
@@ -30,7 +30,7 @@ func TestCreateNetworkIsolatesPeers(t *testing.T) {
 	require.NoError(t, err)
 	assert.Empty(t, peers)
 
-	_, _, err = db.CreateNetwork("cluster-a")
+	_, _, err = db.CreateNetwork("flock-a")
 	require.ErrorIs(t, err, ErrNetworkNameTaken)
 
 	err = db.DestroyNetwork(userA.NetworkID)
@@ -59,7 +59,7 @@ func TestGetOrCreateUserInNetwork(t *testing.T) {
 	db, err := newSQLiteTestDB()
 	require.NoError(t, err)
 
-	network, _, err := db.CreateNetwork("cluster-a")
+	network, _, err := db.CreateNetwork("flock-a")
 	require.NoError(t, err)
 
 	existing, created, err := db.GetOrCreateUserInNetwork(network.ID, types.DefaultNetworkUser)
@@ -81,9 +81,9 @@ func TestSameUsernameInTwoNetworks(t *testing.T) {
 	db, err := newSQLiteTestDB()
 	require.NoError(t, err)
 
-	first, _, err := db.CreateNetwork("cluster-a")
+	first, _, err := db.CreateNetwork("flock-a")
 	require.NoError(t, err)
-	second, _, err := db.CreateNetwork("cluster-b")
+	second, _, err := db.CreateNetwork("flock-b")
 	require.NoError(t, err)
 
 	_, err = db.CreateUser(types.User{Name: "alice", NetworkID: first.ID})

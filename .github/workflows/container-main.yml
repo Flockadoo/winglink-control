@@ -43,7 +43,7 @@ jobs:
 
       - name: Build and push to GHCR
         env:
-          KO_DOCKER_REPO: ghcr.io/inferoute/inferoute-network
+          KO_DOCKER_REPO: ghcr.io/flockadoo/winglink-control
           KO_DEFAULTBASEIMAGE: gcr.io/distroless/base-debian13
           CGO_ENABLED: "0"
         run: |
@@ -55,8 +55,8 @@ jobs:
           fi
           ko build \
             --bare \
-            --image-annotation=org.opencontainers.image.source=https://github.com/Inferoute/inferoute-network \
-            --image-label=org.opencontainers.image.source=https://github.com/Inferoute/inferoute-network \
+            --image-annotation=org.opencontainers.image.source=https://github.com/Flockadoo/winglink-control \
+            --image-label=org.opencontainers.image.source=https://github.com/Flockadoo/winglink-control \
             --platform=linux/amd64,linux/arm64 \
             --tags="$tag" \
             ./cmd/headscale

@@ -347,7 +347,7 @@ func (f *primariesFixture) setNetwork(id types.NodeID, networkID uint) {
 	})
 }
 
-// Two Inferoute clusters advertising the same LAN must both stay
+// Two flocks advertising the same LAN must both stay
 // primary. A process-global election would drop the subnet from the
 // losing tailnet's AllowedIPs.
 func TestPrimaries_SamePrefixDifferentNetworksBothWin(t *testing.T) {

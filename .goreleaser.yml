@@ -56,7 +56,7 @@ nfpms:
     priority: optional
     vendor: headscale
     maintainer: Kristoffer Dalby <kristoffer@dalby.cc>
-    homepage: https://github.com/Inferoute/inferoute-network
+    homepage: https://github.com/Flockadoo/winglink-control
     description: |-
       Open source implementation of the Tailscale control server.
       Headscale aims to implement a self-hosted, open source alternative to the
@@ -95,16 +95,16 @@ nfpms:
 kos:
   - id: ghcr
     repositories:
-      - ghcr.io/inferoute/inferoute-network
+      - ghcr.io/flockadoo/winglink-control
 
     # bare tells KO to only use the repository
     # for tagging and naming the container.
     bare: true
     base_image: gcr.io/distroless/base-debian13
     labels:
-      org.opencontainers.image.source: https://github.com/Inferoute/inferoute-network
+      org.opencontainers.image.source: https://github.com/Flockadoo/winglink-control
     annotations:
-      org.opencontainers.image.source: https://github.com/Inferoute/inferoute-network
+      org.opencontainers.image.source: https://github.com/Flockadoo/winglink-control
     build: headscale
     main: ./cmd/headscale
     env:
@@ -129,14 +129,14 @@ kos:
 
   - id: ghcr-debug
     repositories:
-      - ghcr.io/inferoute/inferoute-network
+      - ghcr.io/flockadoo/winglink-control
 
     bare: true
     base_image: gcr.io/distroless/base-debian13:debug
     labels:
-      org.opencontainers.image.source: https://github.com/Inferoute/inferoute-network
+      org.opencontainers.image.source: https://github.com/Flockadoo/winglink-control
     annotations:
-      org.opencontainers.image.source: https://github.com/Inferoute/inferoute-network
+      org.opencontainers.image.source: https://github.com/Flockadoo/winglink-control
     build: headscale
     main: ./cmd/headscale
     env:

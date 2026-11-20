@@ -503,7 +503,7 @@ func (s *State) GetUserInNetwork(networkID uint, name string) (*types.User, erro
 	return s.db.GetUserInNetwork(networkID, name)
 }
 
-// UserForInvite resolves the Inferoute username inside one tailnet.
+// UserForInvite resolves the Flockadoo username inside one tailnet.
 // An empty name is that tailnet's default user. A missing named user is created.
 func (s *State) UserForInvite(networkID uint, name string) (*types.User, change.Change, error) {
 	if name == "" {

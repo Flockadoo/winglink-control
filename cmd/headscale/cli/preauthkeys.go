@@ -30,7 +30,7 @@ func init() {
 		StringP("expiration", "e", DefaultPreAuthKeyExpiry, "Human-readable expiration of the key (e.g. 30m, 24h)")
 	createPreAuthKeyCmd.Flags().
 		StringSlice("tags", []string{}, "Tags to automatically assign to node")
-	createPreAuthKeyCmd.PersistentFlags().StringP("user", "u", "", "User ID, or name if not a number. With --network, the Inferoute username")
+	createPreAuthKeyCmd.PersistentFlags().StringP("user", "u", "", "User ID, or name if not a number. With --network, the Flockadoo username")
 	createPreAuthKeyCmd.Flags().String("network", "", "Network name. With no --user, the key is for that network's default user")
 	expirePreAuthKeyCmd.PersistentFlags().Uint64P("id", "i", 0, "Authkey ID")
 	deletePreAuthKeyCmd.PersistentFlags().Uint64P("id", "i", 0, "Authkey ID")
@@ -115,7 +115,7 @@ var createPreAuthKeyCmd = &cobra.Command{
 
 		network, _ := cmd.Flags().GetString("network")
 
-		// With --network the argument is the Inferoute username. Resolving it
+		// With --network the argument is the Flockadoo username. Resolving it
 		// here would use the global name lookup and fail once two tailnets
 		// share that name.
 		var userStr string

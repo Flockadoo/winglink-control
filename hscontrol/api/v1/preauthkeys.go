@@ -35,7 +35,7 @@ type PreAuthKey struct {
 // field is optional, hence omitempty throughout.
 type CreatePreAuthKeyRequestBody struct {
 	// User is a numeric id, unless Network is set. With Network it is the
-	// Inferoute username in that tailnet, created when missing. Empty uses
+	// Flockadoo username in that tailnet, created when missing. Empty uses
 	// the tailnet's default user.
 	User       string     `json:"user,omitempty"`
 	Reusable   bool       `json:"reusable,omitempty"`

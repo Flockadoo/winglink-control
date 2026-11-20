@@ -519,7 +519,7 @@ func (h *Headscale) createRouter() *chi.Mux {
 	}
 
 	// /api/v1 and /api/v2 stay on the unix socket only. This listener is the
-	// one inferscale dials (Noise, /key, /derp, /health). Publishing it must
+	// one winglink dials (Noise, /key, /derp, /health). Publishing it must
 	// not publish the admin API.
 	// Ping response endpoint: receives HEAD from clients responding
 	// to a [tailcfg.PingRequest]. The unguessable ping ID serves as authentication.
