@@ -1478,7 +1478,7 @@ func LoadServerConfig() (*Config, error) {
 			"Using subsets of " + flockadooPrefix4 + " and",
 			flockadooPrefix6 + " is fine. The stock Tailscale",
 			"client uses 100.64.0.0/10 and will not accept these",
-			"addresses. Use the winglink client.",
+			"addresses. Use the Winglink client.",
 			"",
 			"Please revert your prefixes to subsets of the",
 			"ranges in the example configuration.",

@@ -6,7 +6,7 @@ Nodes in one network can ping each other. Nodes in another network do not see th
 
 ## Test on a server
 
-One Ubuntu machine runs Headscale. Two other machines run the winglink client, not the Tailscale client. Nothing else is required. Skip Traefik for this test.
+One Ubuntu machine runs Headscale. Two other machines run the Winglink client, not the Tailscale client. Nothing else is required. Skip Traefik for this test.
 
 On the server:
 
@@ -66,7 +66,7 @@ In another shell on the same server, create two clusters and one key per machine
 ./headscale preauthkeys create --network cluster-b --user carol --expiration 24h
 ```
 
-On each client machine, install winglink from the `edge` release of [Flockadoo/winglink](https://github.com/Flockadoo/winglink/releases/tag/edge). `gh` must be logged in. The repo is private. Do not install the Tailscale package. The two files are the same binary. The name `winglinkd` is the daemon. The name `winglink` is the command you type.
+On each client machine, install Winglink from the `edge` release of [Flockadoo/winglink](https://github.com/Flockadoo/winglink/releases/tag/edge). `gh` must be logged in. The repo is private. Do not install the Tailscale package. The two files are the same binary. The name `winglinkd` is the daemon. The name `winglink` is the command you type.
 
 Linux amd64. Use `arm64` in the names on an arm64 machine.
 
