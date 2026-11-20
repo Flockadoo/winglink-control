@@ -1,0 +1,34 @@
+name: Names
+
+# The names from before Winglink (Flockadoo rebrand plan, stage 2). No
+# tracked file's content or path may contain them. The pattern is written so
+# that this file does not match it.
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+permissions:
+  contents: read
+
+jobs:
+  old-names:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+
+      - name: Old names
+        run: |
+          set -u
+          pattern='infer(oute|scale|bid)|sent[n]l'
+          found=0
+          if git grep -n -I -i -E "$pattern"; then found=1; fi
+          if git ls-files | grep -i -E "$pattern"; then found=1; fi
+          if [ "$found" = 1 ]; then
+            echo "::error::Old names found above. Use the names in docs/naming.md (internal-docs)."
+            exit 1
+          fi
