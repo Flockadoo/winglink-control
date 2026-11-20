@@ -15,7 +15,7 @@ import (
 	"tailscale.com/tailcfg"
 )
 
-// Ports match flockadoo-server/pkg/cluster/engine.go TailnetPolicy.
+// Ports match flockadoo-server/pkg/flock/engine.go WinglinkPolicy.
 // This repo does not import that module, so a drift there will not fail this test.
 func TestFlockTailnetGrants(t *testing.T) {
 	IntegrationSkip(t)

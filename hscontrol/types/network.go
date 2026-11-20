@@ -13,7 +13,7 @@ const (
 	// do not pass a network. It is seeded on migrate and first boot.
 	DefaultNetworkName = "default"
 
-	// DefaultNetworkUser is the single user created with a network. Cluster
+	// DefaultNetworkUser is the single user created with a network. Flock
 	// members are nodes of this user, not separate users.
 	DefaultNetworkUser = "default"
 )
@@ -27,7 +27,7 @@ type Network struct {
 	Name string `gorm:"not null"`
 }
 
-// ValidateNetworkName rejects empty names and whitespace. Cluster ids from
+// ValidateNetworkName rejects empty names and whitespace. Flock ids from
 // Flockadoo are opaque strings, so this is intentionally looser than a username.
 func ValidateNetworkName(name string) error {
 	if name == "" || len(name) > 63 || strings.ContainsAny(name, " \t\r\n/") {

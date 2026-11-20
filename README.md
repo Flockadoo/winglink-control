@@ -1,6 +1,6 @@
 # winglink-control
 
-Headscale fork that runs more than one tailnet in a single process. A cluster is a network. A Flockadoo user is a Headscale user inside that network. Their machine is a node joined with a single-use pre-auth key.
+Headscale fork that runs more than one tailnet in a single process. A flock is a network. A Flockadoo user is a Headscale user inside that network. Their machine is a node joined with a single-use pre-auth key.
 
 Nodes in one network can ping each other. Nodes in another network do not see them.
 
@@ -55,7 +55,7 @@ On the Headscale server, allow inbound TCP `8080`. The client machines only conn
 ./headscale serve
 ```
 
-In another shell on the same server, create two clusters and one key per machine. `--user` is the Flockadoo username. The same name in two clusters is allowed.
+In another shell on the same server, create two flocks and one key per machine. `--user` is the Flockadoo username. The same name in two flocks is allowed.
 
 ```shell
 ./headscale networks create --name flock-a
@@ -107,7 +107,7 @@ Alice and Bob each run `sudo winglink status`. Each should list the other and no
 
 Carol's `sudo winglink status` must not list Alice or Bob. `sudo winglink ping` to one of their addresses must fail with `no matching peer`.
 
-If `winglink status` shows the peer and the ping still fails, the cluster is fine and UDP between those two machines is not. If the peer is missing, the control server is the problem.
+If `winglink status` shows the peer and the ping still fails, the flock is fine and UDP between those two machines is not. If the peer is missing, the control server is the problem.
 
 ## Test in Docker
 
