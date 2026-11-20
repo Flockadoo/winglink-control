@@ -29,7 +29,7 @@ func TestTwoIsolatedNetworks(t *testing.T) {
 	require.NoError(t, err)
 	require.NoError(t, headscale.WaitForRunning())
 
-	names := []string{"cluster-a", "cluster-b"}
+	names := []string{"flock-a", "flock-b"}
 	for _, name := range names {
 		_, err = headscale.CreateNetwork(name)
 		require.NoError(t, err)
@@ -81,9 +81,9 @@ func TestTwoIsolatedNetworks(t *testing.T) {
 		assertPingAll(t, clients, addrs)
 	}
 
-	aClients, err := scenario.GetClients("cluster-a")
+	aClients, err := scenario.GetClients("flock-a")
 	require.NoError(t, err)
-	bIPs, err := scenario.GetIPs("cluster-b")
+	bIPs, err := scenario.GetIPs("flock-b")
 	require.NoError(t, err)
 
 	var other string

@@ -58,12 +58,12 @@ On the Headscale server, allow inbound TCP `8080`. The client machines only conn
 In another shell on the same server, create two clusters and one key per machine. `--user` is the Flockadoo username. The same name in two clusters is allowed.
 
 ```shell
-./headscale networks create --name cluster-a
-./headscale preauthkeys create --network cluster-a --user alice --expiration 24h
-./headscale preauthkeys create --network cluster-a --user bob --expiration 24h
+./headscale networks create --name flock-a
+./headscale preauthkeys create --network flock-a --user alice --expiration 24h
+./headscale preauthkeys create --network flock-a --user bob --expiration 24h
 
-./headscale networks create --name cluster-b
-./headscale preauthkeys create --network cluster-b --user carol --expiration 24h
+./headscale networks create --name flock-b
+./headscale preauthkeys create --network flock-b --user carol --expiration 24h
 ```
 
 On each client machine, install Winglink from the `edge` release of [Flockadoo/winglink](https://github.com/Flockadoo/winglink/releases/tag/edge). `gh` must be logged in. The repo is private. Do not install the Tailscale package. The two files are the same binary. The name `winglinkd` is the daemon. The name `winglink` is the command you type.
@@ -101,7 +101,7 @@ On Alice's machine and Bob's machine, in a second shell. On Windows, skip `sudo`
 sudo winglink up --login-server=http://203.0.113.10:8080 --auth-key=<their-key> --accept-routes
 ```
 
-On Carol's machine, use the `cluster-b` key.
+On Carol's machine, use the `flock-b` key.
 
 Alice and Bob each run `sudo winglink status`. Each should list the other and nobody else. `sudo winglink ip -4` prints a `198.18.x.x` address. `sudo winglink ping` to that address should succeed.
 

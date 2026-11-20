@@ -17,7 +17,7 @@ import (
 
 // Ports match flockadoo-server/pkg/cluster/engine.go TailnetPolicy.
 // This repo does not import that module, so a drift there will not fail this test.
-func TestClusterTailnetGrants(t *testing.T) {
+func TestFlockTailnetGrants(t *testing.T) {
 	IntegrationSkip(t)
 
 	const (
@@ -60,7 +60,7 @@ func TestClusterTailnetGrants(t *testing.T) {
 		},
 		hsic.WithACLPolicy(pol),
 		hsic.WithPolicyMode(types.PolicyModeDB),
-		hsic.WithTestName("cluster-tailnet-grants"),
+		hsic.WithTestName("flock-tailnet-grants"),
 	)
 	require.NoError(t, err)
 
@@ -76,7 +76,7 @@ func TestClusterTailnetGrants(t *testing.T) {
 
 	all := append(append([]int{}, allowed...), blocked...)
 	for _, client := range []TailscaleClient{user1[0], user2[0]} {
-		startClusterHTTP(t, client, all)
+		startFlockHTTP(t, client, all)
 	}
 
 	pairs := [][2]TailscaleClient{{user1[0], user2[0]}, {user2[0], user1[0]}}
@@ -107,7 +107,7 @@ func TestClusterTailnetGrants(t *testing.T) {
 	}
 }
 
-func startClusterHTTP(t *testing.T, client TailscaleClient, ports []int) {
+func startFlockHTTP(t *testing.T, client TailscaleClient, ports []int) {
 	t.Helper()
 
 	// Subshell so this exec returns. The parent shell does not wait on the servers.
